@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load category_template_tags %}
+{% block content %}
+<ul>
+  {% for item in wishlist.items.all %}
+    <li>{{ item.name }} - <a href="{% url 'remove_from_wishlist' item.id %}">Remove</a></li>
+  {% empty %}
+    <li>Your wishlist is empty.</li>
+  {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,157 @@
+{% load static %}
+{% load cart_template_tags %}
+<!-- Start Header/Navigation -->
+
+<script>
+{`
+  (function() {
+    var info = console.info
+    console.info = function (message) {
+      if (!/Download the React DevTools/.test(message)) info.apply(console, arguments)
+    }
+  })()
+`}</script>
+
+<style>
+
+.search-form {
+    display: flex;
+    align-items: center;
+    transition: width 0.3s ease;
+}
+
+.search-input {
+    width: 50px;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: width 0.3s ease;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form:hover .search-input {
+    width: 200px;
+}
+
+.search-button:hover {
+    background-color: #f8f9fa;
+}
+
+</style>
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" arial-label="Furni navigation bar">
+
+    <div class="container">
+        <a class="navbar-brand" href="/">SWEETILIOUS<span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link " href="/">Home</a>
+                </li>
+                <li class="nav-item "><a class="nav-link" href="/shop/">Shop</a></li>
+                <!--<li class="nav-item "><a class="nav-link" href="">About us</a></li>-->
+                <!--<li class="nav-item "><a class="nav-link" href="">Services</a></li>-->
+
+                <li class="nav-item "><a class="nav-link" href="/contact/">Contact us</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'shoepage:order-summary' %}"> Cart <span class="badge badge-dark"
+                  >{{ request.user|cart_item_count }}</span><img src="{% static 'images/cart.svg' %}"></a></li>
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="/auth/two-factor-settings/">Enable Multi-Auth</a>
+                      </li>
+                      <li class="nav-item">
+                      <a class="nav-link" href="/wishlist/"><i class="fa fa-heart fa-2x" aria-hidden="true"></i></a>
+                      </li>
+
+                      {% comment %} <li class="nav-item"><a class="nav-link" href="#"><img ><span class="badge badge-dark"
+                        >{{ request.user }}</span></a></li> {% endcomment %}
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Login</a>
+
+                      </li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">SignUp</a></li>
+                      {% endif %}
+            </ul>
+
+            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5" style="margin-right:10px;">
+    <form method="get" action="/search" class="search-form">
+        <input type="text" class="form-control search-input" name="query" placeholder="Search..." required>
+        <button type="submit" class="search-button"><span class="input-group-text" id="search-addon">
+            <i class="fas fa-search"></i>
+        </span></button>
+    </form>
+</ul>
+            {% if request.user.is_authenticated %}
+
+        <div class="header-wrapicon2">
+          <img
+            src="{% static 'images/user.svg' %}"
+            class="header-icon1 js-show-header-dropdown"
+            alt="ICON"
+          />
+          <span class="text-light text-uppercase">{{ request.user }}</span>
+
+          <!-- Header cart noti -->
+          <div class="header-cart header-dropdown">
+            <ul class="header-cart-wrapitem">
+                {% for order_item in object.items.all %}
+              <li class="header-cart-item">
+                <div class="header-cart-item-img">
+                  <img src="{{ order_item.item.image.url }}" alt="IMG" />
+                </div>
+
+                <div class="header-cart-item-txt">
+                  <a href="#" class="header-cart-item-name">
+                    {{ order_item.item.title }}
+                  </a>
+
+                  <span class="header-cart-item-info"> ${{ order_item.item.price }} </span>
+
+                </div>
+              </li>
+              {% empty %}
+                  <span class="header-cart-item-info">Your cart is empty</span>
+              {% endfor %}
+
+            </ul>
+
+            <div class="header-cart-total">Total: ${{ object.get_total }}</div>
+
+            <div class="header-cart-buttons">
+              <div class="header-cart-wrapbtn">
+                <!-- Button -->
+                <a
+                  href="{% url 'shoepage:order-summary' %}"
+                  class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4"
+                >
+                  View Cart
+                </a>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <ul>
+              <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+                      </li>
+        </ul>
+        {% endif %}
+        </div>
+    </div>
+
+</nav>
+<!-- End Header/Navigation -->
+<p><br></br></p>
+<p><br></br></p>

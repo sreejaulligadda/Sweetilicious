@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Make Payment{% endblock %}
+
+{% block content %}
+<script src="https://www.paypal.com/sdk/js?client-id=AT3ix4YJADrZJocS8U4ScFuF30TBWgh0pS46u17RspQ3syg_kQVHK02ZcNQ6rynIoAp8nrq7vCVKyY-I&currency=USD"></script>
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="col-md-8 order-md-1 card" >
+            <h4 class="mb-3" style=" margin-top: 26px;">Pay with PayPal</h4>
+            <div id="paypal-button-container" class="mt-2"></div>
+        </div>
+     {% include "order_snippet.html" %}
+     </div>
+
+
+  </div>
+
+  <p><b></br></p>
+  <script>
+      paypal.Buttons({
+          style: {
+              layout: 'vertical',
+              shape: 'pill',
+          },
+          createOrder: function(data, actions){
+              return actions.order.create({
+                  purchase_units:[{
+                       amount:{
+                      value: '1.0'
+                    }
+                  }]
+
+              });
+          },
+          onApprove: function(data, actions){
+              return actions.order.capture().then(function(orderData){
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert('Transaction ' + transaction.status + ':' + transaction.id);
+
+              });
+          }
+      }).render('#paypal-button-container');
+  </script>
+{% endblock %}

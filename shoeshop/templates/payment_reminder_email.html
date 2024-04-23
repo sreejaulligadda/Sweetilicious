@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Reminder</title>
+</head>
+<body>
+    <h2>Payment Reminder</h2>
+    <p>Dear {{ user.username }},</p>
+    <p>Please complete your payment for the following items:</p>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - ${{ product.price }}</li>
+        {% endfor %}
+    </ul>
+    <p>Click <a href="{{ payment_url }}">here</a> to complete your payment.</p>
+    <p>Thank you for shopping with us!</p>
+</body>
+</html>

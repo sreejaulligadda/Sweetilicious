@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load category_template_tags %}
+{% block content %}
+
+
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Indulge in our <span clsas="d-block">Heavenly Pastries</span></h1>
+								<p class="mb-4">Discover pure delight at Sweetilious. From freshly baked bread to decadent pastries, indulge in artisanal treats crafted with passion. Join us in savoring every bite of goodness. Welcome to our bakery, where passion meets perfection.</p>
+								<p><a href="/shop/" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<img src="{% static 'images/cakee.png' %}" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		<!-- Start Product Section -->
+		<div class="product-section">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-12">
+						<h3 class="product-title text-success text-uppercase text-center">Categories</h3>
+					</div>
+					<!-- End Column 2 -->
+					<!-- Start Column 1 -->
+                    <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+                        <h2 class="mb-4 section-title">Delicious treats await you!.</h2>
+                        <p class="mb-4">Satisfy your cravings with our delectable array of freshly baked cookies, from classic chocolate chip to exotic flavors like matcha green tea and salted caramel, each bite bursting with homemade goodness and love. </p>
+                        <p><a href="/shop/" class="btn">Explore</a></p>
+                    </div>
+                    <!-- End Column 1 -->
+
+                    <!-- Start Column 2 -->
+                    <div class="col-12 col-md-12 col-lg-6  mb-md-0">
+                        <!-- Categories start here -->
+                        <div class="row">
+                            {% categories_div %}
+                        </div>
+                        <!-- End Categories -->
+                    </div>
+                    <!-- End Column 2 -->
+
+				</div>
+			</div>
+		</div>
+		<!-- End Product Section -->
+
+		<!-- New Product -->
+<style>
+	.newproduct {
+	  margin-bottom: 2px;
+	  padding-bottom: 2px;
+	  background-color : lavender;
+	}
+  </style>
+  <section class="newproduct p-t-45 p-b-105">
+	<div class="container">
+	  <div class="sec-title p-b-60">
+		<h3 class="m-text5 t-center">Featured Products</h3>
+	  </div>
+
+	  <!-- Slide2 -->
+	  <div class="wrap-slick2">
+		<div class="slick2">
+		  {% for item in object_list %}
+
+		  <div class="item-slick2 p-l-15 p-r-15">
+			<!-- Block2 -->
+			<div class="block2">
+			  <div
+				class="block2-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}"
+			  >
+				<a href="{{item.get_absolute_url}}">
+				  <img
+					src="{{ item.image.url }}"
+					alt="IMG-PRODUCT"
+					style="height: 200px; width: 200px"
+				/></a>
+			  </div>
+
+			  <div class="block2-txt p-t-20">
+				<a
+				  href="{{item.get_absolute_url}}"
+				  class="block2-name dis-block s-text3 p-b-5"
+				  style="color: black"
+				>
+				  {{ item.title }}
+				</a>
+
+				{% if item.discount_price %}
+				<span class="block2-oldprice m-text7 p-r-5" style="color: black">
+				  ${{ item.price }}
+				</span>
+
+				<span class="block2-newprice m-text8 p-r-5">
+				  ${{ item.discount_price }}
+				</span>
+				{% else %}
+				<span class="block2-price m-text6 p-r-5" style="color: black">
+				  ${{ item.price }}
+				</span>
+				{% endif %}
+			  </div>
+			</div>
+		  </div>
+
+		  {% endfor %}
+		</div>
+	  </div>
+	</div>
+  </section>
+
+		<!-- Start Why Choose Us Section -->
+		<div class="why-choose-section">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-6">
+						<h2 class="section-title">Why Choose Us</h2>
+						<p>Choose us for our commitment to excellence, unparalleled quality, and the unforgettable flavors that keep our customers coming back for more. Experience the difference with every bite.</p>
+
+						<div class="row my-5">
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="{% static 'images/truck.svg' %}" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Fast &amp; Free Shipping</h3>
+									<p>Select us for swift and complimentary shipping, ensuring your delightful treats reach you fresh and fast, straight to your doorstep, making indulgence effortless.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="{% static 'images/bag.svg' %}" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Easy to Shop</h3>
+									<p>Opt for us for a seamless shopping experience, where finding your favorite treats is as effortless as enjoying them. With user-friendly navigation and a hassle-free checkout process, satisfaction is just a click away.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="{% static 'images/support.svg'%}" alt="Image" class="imf-fluid">
+									</div>
+									<h3>24/7 Support</h3>
+									<p>Count on us for round-the-clock support, ensuring your queries are addressed promptly and your experience with us remains smooth and seamless, anytime, day or night.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="{% static 'images/return.svg'%}" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Hassle Free Returns</h3>
+									<p>Rest easy with hassle-free returns, ensuring your satisfaction is our top priority. If you're not delighted with your purchase, our simple return process makes it easy to find the perfect treat for you.</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-lg-5">
+						<div class="img-wrap">
+							<img src="{% static 'images/del.jpg'%}" alt="Image" class="img-fluid">
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End Why Choose Us Section -->
+
+
+
+
+
+
+
+{% endblock content %}
